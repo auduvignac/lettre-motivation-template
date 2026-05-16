@@ -31,7 +31,7 @@ Dans un document LaTeX :
   {Adresse}
 
 \LMplaceanddate{Ville}{Date}
-\LMsetsubject{Candidature intitulé du poste, type de contrat}
+\LMsetsubject{Candidature : intitulé du poste, type de contrat}
 \LMsetgreeting{Madame, Monsieur,}
 
 \LM{%
