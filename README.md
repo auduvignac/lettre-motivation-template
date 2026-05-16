@@ -60,6 +60,57 @@ Nettoyer les fichiers générés :
 latexmk -c
 ```
 
+## Options de package
+
+Par défaut, le package garde une configuration prête pour `pdflatex` :
+
+```tex
+\usepackage{lettre_motivation_template}
+```
+
+Ce mode charge `inputenc` en UTF-8, `fontenc` en T1, `babel` avec `french`, `helvet`, et applique `\sfdefault` comme famille par défaut. `inputenc` et `fontenc` ne sont chargés que sous pdfTeX pour éviter les conflits avec XeLaTeX et LuaLaTeX.
+
+Si le document configure déjà l'encodage, la langue ou les polices, ces choix peuvent être désactivés :
+
+```tex
+\usepackage[
+  encoding=false,
+  fontencoding=false,
+  language=false,
+  font=false,
+  sansdefault=false
+]{lettre_motivation_template}
+```
+
+Chemin recommandé avec XeLaTeX ou LuaLaTeX :
+
+```tex
+\documentclass[a4paper,12pt]{letter}
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\setmainfont{Arial}
+\usepackage[
+  encoding=false,
+  fontencoding=false,
+  language=false,
+  font=false,
+  sansdefault=false
+]{lettre_motivation_template}
+```
+
+Dans ce cas, compilez le document consommateur avec `xelatex` ou `lualatex`. Le `latexmkrc` de ce repository reste configuré pour l'exemple `pdflatex`.
+
+Les valeurs par défaut peuvent aussi être remplacées sans désactiver tout le chargement :
+
+```tex
+\usepackage[
+  inputencoding=utf8,
+  fontencodingname=T1,
+  babeloptions=french,
+  fontpackage=helvet
+]{lettre_motivation_template}
+```
+
 ## Personnalisation
 
 Le package expose des longueurs et commandes de mise en page pour ajuster le rendu sans modifier directement le cœur du template :
@@ -150,4 +201,3 @@ Ou, si le repository existe déjà sur GitHub :
 git remote add origin git@github.com:<owner>/<repo>.git
 git push -u origin main
 ```
-

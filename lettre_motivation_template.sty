@@ -1,19 +1,44 @@
 \NeedsTeXFormat{LaTeX2e}
 
-\RequirePackage[utf8]{inputenc}
-\RequirePackage[T1]{fontenc}
-\RequirePackage[french]{babel}
-\RequirePackage{helvet}
-\RequirePackage[absolute,overlay]{textpos}
-\RequirePackage{geometry}
-\RequirePackage{calc}
+\RequirePackage{iftex}
 \RequirePackage{kvoptions}
 
 \SetupKeyvalOptions{family=LM,prefix=LM@}
 \DeclareStringOption[2.565]{margin}
+\DeclareBoolOption[true]{encoding}
+\DeclareBoolOption[true]{fontencoding}
+\DeclareBoolOption[true]{language}
+\DeclareBoolOption[true]{font}
+\DeclareBoolOption[true]{sansdefault}
+\DeclareStringOption[utf8]{inputencoding}
+\DeclareStringOption[T1]{fontencodingname}
+\DeclareStringOption[french]{babeloptions}
+\DeclareStringOption[helvet]{fontpackage}
 \ProcessKeyvalOptions*
 
-\renewcommand{\familydefault}{\sfdefault}
+\ifLM@encoding
+  \ifPDFTeX
+    \RequirePackage[\LM@inputencoding]{inputenc}
+  \fi
+\fi
+\ifLM@fontencoding
+  \ifPDFTeX
+    \RequirePackage[\LM@fontencodingname]{fontenc}
+  \fi
+\fi
+\ifLM@language
+  \RequirePackage[\LM@babeloptions]{babel}
+\fi
+\ifLM@font
+  \RequirePackage{\LM@fontpackage}
+\fi
+\RequirePackage[absolute,overlay]{textpos}
+\RequirePackage{geometry}
+\RequirePackage{calc}
+
+\ifLM@sansdefault
+  \renewcommand{\familydefault}{\sfdefault}
+\fi
 \newlength{\LMmargin}
 \newlength{\LMcontentW}
 \setlength{\LMmargin}{\LM@margin cm}
