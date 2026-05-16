@@ -145,7 +145,7 @@
     #4
   \end{textblock*}%
 }
-\newcommand{\LMleftcontentblock}[4]{%
+\newcommand{\LMrecipientalignedblock}[4]{%
   \begin{textblock*}{#1}(#2,#3)
     \makebox[#1][r]{%
       \begin{minipage}[t]{\LMrecipientContentW}
@@ -155,16 +155,8 @@
     }%
   \end{textblock*}%
 }
-\newcommand{\LMleftalignedwithrecipientblock}[4]{%
-  \begin{textblock*}{#1}(#2,#3)
-    \makebox[#1][r]{%
-      \begin{minipage}[t]{\LMrecipientContentW}
-        \raggedright
-        #4
-      \end{minipage}%
-    }%
-  \end{textblock*}%
-}
+\let\LMleftcontentblock\LMrecipientalignedblock
+\let\LMleftalignedwithrecipientblock\LMrecipientalignedblock
 \newcommand{\LMrightblock}[4]{%
   \begin{textblock*}{#1}(#2,#3)
     \raggedleft
