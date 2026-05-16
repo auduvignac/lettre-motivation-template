@@ -48,13 +48,15 @@
 \setlength{\TPHorizModule}{1mm}
 \setlength{\TPVertModule}{1mm}
 \textblockorigin{\LMmargin}{\LMmargin}
-\setlength{\parindent}{0pt}
-\setlength{\parskip}{0pt}
-\setlength{\fboxsep}{0pt}
-\setlength{\fboxrule}{0.42mm}
 
 \newcommand{\LMmainfont}{\fontsize{11.25pt}{15.95pt}\selectfont}
 \newcommand{\LMboldfont}{\fontsize{11.25pt}{15.95pt}\selectfont\bfseries}
+\newcommand{\LMblocksetup}{%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{0pt}%
+  \setlength{\fboxsep}{0pt}%
+  \setlength{\fboxrule}{0.42mm}%
+}
 
 \newlength{\LMsenderX}
 \newlength{\LMsenderY}
@@ -167,13 +169,16 @@
 
 \newcommand{\LMblock}[4]{%
   \begin{textblock*}{#1}(#2,#3)
+    \LMblocksetup
     #4
   \end{textblock*}%
 }
 \newcommand{\LMrecipientalignedblock}[4]{%
   \begin{textblock*}{#1}(#2,#3)
+    \LMblocksetup
     \makebox[#1][r]{%
       \begin{minipage}[t]{\LMrecipientContentW}
+        \LMblocksetup
         \raggedright
         #4
       \end{minipage}%
@@ -183,7 +188,7 @@
 \newcommand{\LMbodyblock}{%
   \begin{textblock*}{\LMbodyW}(\LMbodyX,\LMbodyY)
     \begin{minipage}[t]{\LMbodyW}
-      \setlength{\parindent}{0pt}%
+      \LMblocksetup
       \setlength{\parskip}{\LMbodyParSkip}%
       \LMbody
       \par\vspace{\LMclosingSkip}%
