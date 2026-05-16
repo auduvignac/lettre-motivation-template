@@ -155,14 +155,6 @@
     }%
   \end{textblock*}%
 }
-\let\LMleftcontentblock\LMrecipientalignedblock
-\let\LMleftalignedwithrecipientblock\LMrecipientalignedblock
-\newcommand{\LMrightblock}[4]{%
-  \begin{textblock*}{#1}(#2,#3)
-    \raggedleft
-    #4
-  \end{textblock*}%
-}
 \newcommand{\LMbodyblock}{%
   \begin{textblock*}{\LMbodyW}(\LMbodyX,\LMbodyY)
     \begin{minipage}[t]{\LMbodyW}
@@ -188,12 +180,12 @@
     \LMsenderResidence
   }
   \LMmeasureRecipientContent
-  \LMleftcontentblock{\LMrecipientW}{\LMrecipientX}{\LMrecipientY}{%
+  \LMrecipientalignedblock{\LMrecipientW}{\LMrecipientX}{\LMrecipientY}{%
     \LMline{\LMrecipientCompany}
     \LMline{\LMrecipientService}
     \LMrecipientAddress
   }
-  \LMleftalignedwithrecipientblock{\LMdateW}{\LMdateX}{\LMdateY}{\LMcity, le \LMdate}
+  \LMrecipientalignedblock{\LMdateW}{\LMdateX}{\LMdateY}{\LMcity, le \LMdate}
   \LMblock{\LMsubjectW}{\LMsubjectX}{\LMsubjectY}{%
     {\LMboldfont Objet : \LMsubject}
   }
