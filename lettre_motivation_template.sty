@@ -1,0 +1,228 @@
+\NeedsTeXFormat{LaTeX2e}
+
+\RequirePackage{iftex}
+\RequirePackage{kvoptions}
+
+\SetupKeyvalOptions{family=LM,prefix=LM@}
+\DeclareStringOption[2.565]{margin}
+\DeclareBoolOption[true]{encoding}
+\DeclareBoolOption[true]{fontencoding}
+\DeclareBoolOption[true]{language}
+\DeclareBoolOption[true]{font}
+\DeclareBoolOption[true]{sansdefault}
+\DeclareStringOption[utf8]{inputencoding}
+\DeclareStringOption[T1]{fontencodingname}
+\DeclareStringOption[french]{babeloptions}
+\DeclareStringOption[helvet]{fontpackage}
+\ProcessKeyvalOptions*
+
+\ifLM@encoding
+  \ifPDFTeX
+    \RequirePackage[\LM@inputencoding]{inputenc}
+  \fi
+\fi
+\ifLM@fontencoding
+  \ifPDFTeX
+    \RequirePackage[\LM@fontencodingname]{fontenc}
+  \fi
+\fi
+\ifLM@language
+  \RequirePackage[\LM@babeloptions]{babel}
+\fi
+\ifLM@font
+  \RequirePackage{\LM@fontpackage}
+\fi
+\RequirePackage[absolute,overlay]{textpos}
+\RequirePackage{geometry}
+\RequirePackage{calc}
+
+\ifLM@sansdefault
+  \renewcommand{\familydefault}{\sfdefault}
+\fi
+\newlength{\LMmargin}
+\newlength{\LMcontentW}
+\setlength{\LMmargin}{\LM@margin cm}
+\geometry{paper=a4paper,margin=\LMmargin}
+\pagestyle{empty}
+
+\setlength{\TPHorizModule}{1mm}
+\setlength{\TPVertModule}{1mm}
+\textblockorigin{\LMmargin}{\LMmargin}
+
+\newcommand{\LMmainfont}{\fontsize{11.25pt}{15.95pt}\selectfont}
+\newcommand{\LMboldfont}{\fontsize{11.25pt}{15.95pt}\selectfont\bfseries}
+\newcommand{\LMblocksetup}{%
+  \setlength{\parindent}{0pt}%
+  \setlength{\parskip}{0pt}%
+  \setlength{\fboxsep}{0pt}%
+  \setlength{\fboxrule}{0.42mm}%
+}
+
+\newlength{\LMsenderX}
+\newlength{\LMsenderY}
+\newlength{\LMsenderW}
+\newlength{\LMrecipientX}
+\newlength{\LMrecipientY}
+\newlength{\LMrecipientW}
+\newlength{\LMrecipientContentW}
+\newlength{\LMrecipientMeasureW}
+\newlength{\LMdateX}
+\newlength{\LMdateY}
+\newlength{\LMdateW}
+\newlength{\LMsubjectX}
+\newlength{\LMsubjectY}
+\newlength{\LMsubjectW}
+\newlength{\LMgreetingX}
+\newlength{\LMgreetingY}
+\newlength{\LMgreetingW}
+\newlength{\LMbodyX}
+\newlength{\LMbodyY}
+\newlength{\LMbodyW}
+\newlength{\LMbodyParSkip}
+\newlength{\LMclosingSkip}
+\newlength{\LMsignatureSkip}
+
+\setlength{\LMcontentW}{\paperwidth-2\LMmargin}
+\setlength{\LMsenderX}{0mm}
+\setlength{\LMsenderY}{0.70mm}
+\setlength{\LMsenderW}{70mm}
+\setlength{\LMrecipientW}{93mm}
+\setlength{\LMrecipientX}{\LMcontentW-\LMrecipientW}
+\setlength{\LMrecipientY}{28.80mm}
+\setlength{\LMdateW}{93mm}
+\setlength{\LMdateX}{\LMcontentW-\LMdateW}
+\setlength{\LMdateY}{51.35mm}
+\setlength{\LMsubjectX}{0mm}
+\setlength{\LMsubjectY}{62.50mm}
+\setlength{\LMsubjectW}{\LMcontentW}
+\setlength{\LMgreetingX}{0mm}
+\setlength{\LMgreetingY}{73.75mm}
+\setlength{\LMgreetingW}{\LMcontentW}
+\setlength{\LMbodyX}{0mm}
+\setlength{\LMbodyY}{84.07mm}
+\setlength{\LMbodyW}{\LMcontentW}
+\setlength{\LMbodyParSkip}{0.45\baselineskip}
+\setlength{\LMclosingSkip}{0.85\baselineskip}
+\setlength{\LMsignatureSkip}{1.35\baselineskip}
+
+\newcommand{\LMsenderName}{Nom Prénom}
+\newcommand{\LMsenderPhone}{Numéro de téléphone}
+\newcommand{\LMsenderMail}{Mail}
+\newcommand{\LMsenderResidence}{Lieu de résidence}
+\newcommand{\LMrecipientCompany}{Nom de l'entreprise}
+\newcommand{\LMrecipientService}{Responsable, Recruteur, Service}
+\newcommand{\LMrecipientAddress}{Adresse}
+\newcommand{\LMcity}{[nom de ta ville]}
+\newcommand{\LMdate}{[date]}
+\newcommand{\LMsubject}{Candidature [intitulé du poste], [type de contrat]}
+\newcommand{\LMgreeting}{Madame, Monsieur,}
+\newcommand{\LMbody}{%
+  Introduction de la lettre de motivation, ta présentation.
+
+  Quel est le besoin de l'entreprise que tu as identifié ? Qu'as-tu compris du poste et des missions ? Pourquoi tu postules dans cette entreprise?
+
+  2/3 Compétences et exemples pour les illustrer. Utiliser des faits et des chiffres.
+
+  Faire le lien entre les deux premières parties. Comment ton profil correspond aux besoins de l'entreprise ? Les bénéfices réciproques d'une éventuelle collaboration ? Pourquoi es-tu le candidat idéal ?
+}
+\newcommand{\LMclosing}{%
+  Je reste à votre disposition pour un entretien à votre convenance. En vous remerciant pour\\
+  l'attention que vous porterez à ma candidature. Je vous prie, Madame, Monsieur, d'agréer\\
+  mes sincères salutations.
+}
+\newcommand{\LMsignature}{Nom Prénom}
+
+\newcommand{\LMsender}[4]{%
+  \renewcommand{\LMsenderName}{#1}%
+  \renewcommand{\LMsenderPhone}{#2}%
+  \renewcommand{\LMsenderMail}{#3}%
+  \renewcommand{\LMsenderResidence}{#4}%
+}
+\newcommand{\LMrecipient}[3]{%
+  \renewcommand{\LMrecipientCompany}{#1}%
+  \renewcommand{\LMrecipientService}{#2}%
+  \renewcommand{\LMrecipientAddress}{#3}%
+}
+\newcommand{\LMplaceanddate}[2]{%
+  \renewcommand{\LMcity}{#1}%
+  \renewcommand{\LMdate}{#2}%
+}
+\newcommand{\LMsetsubject}[1]{\renewcommand{\LMsubject}{#1}}
+\newcommand{\LMsetgreeting}[1]{\renewcommand{\LMgreeting}{#1}}
+\newcommand{\LM}[1]{\renewcommand{\LMbody}{#1}}
+\newcommand{\LMsetclosing}[1]{\renewcommand{\LMclosing}{#1}}
+\newcommand{\LMsetsignature}[1]{\renewcommand{\LMsignature}{#1}}
+
+\newcommand{\LMline}[1]{#1\\}
+
+\newcommand{\LMmeasureRecipientContent}{%
+  \settowidth{\LMrecipientContentW}{\LMrecipientCompany}%
+  \settowidth{\LMrecipientMeasureW}{\LMrecipientService}%
+  \ifdim\LMrecipientMeasureW>\LMrecipientContentW
+    \setlength{\LMrecipientContentW}{\LMrecipientMeasureW}%
+  \fi
+  \settowidth{\LMrecipientMeasureW}{\LMrecipientAddress}%
+  \ifdim\LMrecipientMeasureW>\LMrecipientContentW
+    \setlength{\LMrecipientContentW}{\LMrecipientMeasureW}%
+  \fi
+  \ifdim\LMrecipientContentW>\LMrecipientW
+    \setlength{\LMrecipientContentW}{\LMrecipientW}%
+  \fi
+}
+
+\newcommand{\LMblock}[4]{%
+  \begin{textblock*}{#1}(#2,#3)
+    \LMblocksetup
+    #4
+  \end{textblock*}%
+}
+\newcommand{\LMrecipientalignedblock}[4]{%
+  \begin{textblock*}{#1}(#2,#3)
+    \LMblocksetup
+    \makebox[#1][r]{%
+      \begin{minipage}[t]{\LMrecipientContentW}
+        \LMblocksetup
+        \raggedright
+        #4
+      \end{minipage}%
+    }%
+  \end{textblock*}%
+}
+\newcommand{\LMbodyblock}{%
+  \begin{textblock*}{\LMbodyW}(\LMbodyX,\LMbodyY)
+    \begin{minipage}[t]{\LMbodyW}
+      \LMblocksetup
+      \setlength{\parskip}{\LMbodyParSkip}%
+      \LMbody
+      \par\vspace{\LMclosingSkip}%
+      \LMclosing
+      \par\vspace{\LMsignatureSkip}%
+      {\LMboldfont \LMsignature}%
+    \end{minipage}%
+  \end{textblock*}%
+}
+
+\newcommand{\LMmakeletter}{%
+  \begin{letter}{}
+  \LMmainfont
+  \thispagestyle{empty}
+  \LMblock{\LMsenderW}{\LMsenderX}{\LMsenderY}{%
+    \LMline{\LMsenderName}
+    \LMline{\LMsenderPhone}
+    \LMline{\LMsenderMail}
+    \LMsenderResidence
+  }
+  \LMmeasureRecipientContent
+  \LMrecipientalignedblock{\LMrecipientW}{\LMrecipientX}{\LMrecipientY}{%
+    \LMline{\LMrecipientCompany}
+    \LMline{\LMrecipientService}
+    \LMrecipientAddress
+  }
+  \LMrecipientalignedblock{\LMdateW}{\LMdateX}{\LMdateY}{\LMcity, le \LMdate}
+  \LMblock{\LMsubjectW}{\LMsubjectX}{\LMsubjectY}{%
+    {\LMboldfont Objet : \LMsubject}
+  }
+  \LMblock{\LMgreetingW}{\LMgreetingX}{\LMgreetingY}{\LMgreeting}
+  \LMbodyblock
+  \end{letter}
+}

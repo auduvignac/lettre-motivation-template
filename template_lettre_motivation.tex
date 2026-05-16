@@ -1,0 +1,63 @@
+\documentclass[a4paper,12pt]{letter}
+\usepackage{lettre_motivation_template}
+
+% Contenu expéditeur
+\LMsender
+  {Nom Prénom}
+  {Numéro de téléphone}
+  {Mail}
+  {Lieu de résidence}
+
+% Contenu destinataire
+\LMrecipient
+  {Nom de l'entreprise}
+  {Responsable, Recruteur, Service}
+  {Adresse}
+
+% Date, objet et formule d'appel
+\LMplaceanddate{[nom de ta ville]}{[date]}
+\LMsetsubject{Candidature [intitulé du poste], [type de contrat]}
+\LMsetgreeting{Madame, Monsieur,}
+
+% Corps de la lettre
+\LM{%
+\begin{itemize}
+  \item Vous :
+  \begin{itemize}
+    \item Introduction de la lettre de motivation, votre présentation.
+    \item Quel est le besoin de l'entreprise que vous avez identifié ? Qu'avez-vous compris du poste et des missions ? Pour quelles raisons postulez-vous dans cette entreprise ?
+    \item Qu'avez-vous compris du poste et des missions ?
+    \item Pourquoi postulez-vous dans cette entreprise ?
+  \end{itemize}
+  \item Moi :
+  \begin{itemize}
+    \item 2/3 Compétences et exemples pour les illustrer.
+    \item Utiliser des faits et des chiffres.
+  \end{itemize}
+  \item Nous :
+  \begin{itemize}
+    \item Faire le lien entre les deux premières parties.
+    \item Comment votre profil correspond aux besoins de l'entreprise ?
+    \item Les bénéfices réciproques d'une éventuelle collaboration ?
+    \item Pourquoi êtes-vous le candidat idéal ?
+    \item Utiliser des faits et des chiffres.
+  \end{itemize}
+\end{itemize}
+}
+
+% Clôture et signature
+\LMsetclosing{%
+  Je reste à votre disposition pour un entretien à votre convenance. En vous remerciant pour\\
+  l'attention que vous porterez à ma candidature. Je vous prie, Madame, Monsieur, d'agréer\\
+  mes sincères salutations.
+}
+\LMsetsignature{Nom Prénom}
+
+% Exemple de recalibrage possible :
+% \setlength{\LMsenderY}{26.35mm}
+% \setlength{\LMbodyW}{159.2mm}
+% \renewcommand{\LMmainfont}{\fontsize{11.25pt}{15.95pt}\selectfont}
+
+\begin{document}
+\LMmakeletter
+\end{document}
