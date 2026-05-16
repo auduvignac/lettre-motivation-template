@@ -165,6 +165,9 @@
   \ifdim\LMrecipientMeasureW>\LMrecipientContentW
     \setlength{\LMrecipientContentW}{\LMrecipientMeasureW}%
   \fi
+  \ifdim\LMrecipientContentW>\LMrecipientW
+    \setlength{\LMrecipientContentW}{\LMrecipientW}%
+  \fi
 }
 
 \newcommand{\LMblock}[4]{%
