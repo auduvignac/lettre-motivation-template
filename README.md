@@ -62,7 +62,7 @@ latexmk -c
 
 ## Personnalisation
 
-Le package expose des longueurs et commandes de mise en page pour ajuster le rendu sans modifier directement le coeur du template :
+Le package expose des longueurs et commandes de mise en page pour ajuster le rendu sans modifier directement le cœur du template :
 
 ```tex
 \setlength{\LMsenderY}{26.35mm}
@@ -128,7 +128,7 @@ git push -u origin feat/description-courte
 
 Créer ensuite une merge request vers `main`.
 
-## Creation du repository GitHub
+## Création du repository distant avec GitHub CLI :
 
 Initialisation locale recommandée :
 
@@ -138,7 +138,7 @@ git add .
 git commit -m "chore: initial import"
 ```
 
-Creation du repository distant avec GitHub CLI :
+Création du repository distant avec GitHub CLI :
 
 ```bash
 gh repo create <owner>/<repo> --private --source=. --remote=origin --push
