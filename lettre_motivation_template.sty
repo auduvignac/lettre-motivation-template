@@ -21,7 +21,8 @@
   \LM@fontpackageexplicittrue
   \def\LM@fontpackage{#1}%
 }
-\DeclareStringOption[Arial]{fontname}
+\newcommand{\LM@fallbackfontname}{TeX Gyre Heros}
+\DeclareStringOption[\LM@fallbackfontname]{fontname}
 \ProcessKeyvalOptions*
 
 \ifLM@encoding
@@ -48,8 +49,17 @@
       }%
     \fi
     \RequirePackage{fontspec}
-    \setmainfont{\LM@fontname}
-    \setsansfont{\LM@fontname}
+    \IfFontExistsTF{\LM@fontname}{%
+      \setmainfont{\LM@fontname}
+      \setsansfont{\LM@fontname}
+    }{%
+      \PackageWarning{lettre_motivation_template}{%
+        Font `\LM@fontname' not found.\MessageBreak
+        Falling back to `\LM@fallbackfontname'%
+      }%
+      \setmainfont{\LM@fallbackfontname}
+      \setsansfont{\LM@fallbackfontname}
+    }%
   \fi
 \fi
 \RequirePackage[absolute,overlay]{textpos}

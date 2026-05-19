@@ -88,7 +88,7 @@ Chemin recommandé avec XeLaTeX ou LuaLaTeX :
 \documentclass[a4paper,12pt]{letter}
 \usepackage{fontspec}
 \usepackage[french]{babel}
-\setmainfont{Arial}
+\setmainfont{TeX Gyre Heros}
 \usepackage[
   encoding=false,
   fontencoding=false,
@@ -100,6 +100,31 @@ Chemin recommandé avec XeLaTeX ou LuaLaTeX :
 
 Dans ce cas, compilez le document consommateur avec `xelatex` ou `lualatex`. Le `latexmkrc` de ce repository reste configuré pour l'exemple `pdflatex`.
 
+Pour utiliser Arial depuis le document principal, chargez `fontspec` vous-même et désactivez la gestion des polices du package :
+
+```tex
+\documentclass[a4paper,12pt]{letter}
+\usepackage{fontspec}
+\usepackage[french]{babel}
+\setmainfont{Arial}
+\setsansfont{Arial}
+\usepackage[
+  encoding=false,
+  fontencoding=false,
+  language=false,
+  font=false,
+  sansdefault=false
+]{lettre_motivation_template}
+```
+
+Il est aussi possible de laisser le package charger `fontspec` avec Arial :
+
+```tex
+\usepackage[fontname=Arial]{lettre_motivation_template}
+```
+
+Dans ce second cas, si Arial n'est pas installée, le package émet un avertissement et se replie sur `TeX Gyre Heros`.
+
 Les valeurs par défaut peuvent aussi être remplacées sans désactiver tout le chargement :
 
 ```tex
@@ -107,11 +132,14 @@ Les valeurs par défaut peuvent aussi être remplacées sans désactiver tout le
   inputencoding=utf8,
   fontencodingname=T1,
   babeloptions=french,
-  fontpackage=helvet
+  fontpackage=helvet,
+  fontname=TeX Gyre Heros
 ]{lettre_motivation_template}
 ```
 
 `fontpackage` ne concerne que pdfTeX. Sous XeLaTeX et LuaLaTeX, cette option est dépréciée et ignorée : le package charge `fontspec` et utilise `fontname` pour `\setmainfont` et `\setsansfont`. Pour une configuration `fontspec` entièrement personnalisée, utilisez `font=false` et chargez les polices dans le document qui fait appel au package.
+
+La valeur par défaut de `fontname` est `TeX Gyre Heros`, une police sans sérif généralement disponible avec les distributions TeX. Si la police indiquée par `fontname` est absente, le package émet un avertissement et se replie sur `TeX Gyre Heros`.
 
 ## Personnalisation
 
