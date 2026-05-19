@@ -1,5 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
+\makeatletter
+
 \RequirePackage{iftex}
 \RequirePackage{kvoptions}
 
@@ -14,6 +16,7 @@
 \DeclareStringOption[T1]{fontencodingname}
 \DeclareStringOption[french]{babeloptions}
 \DeclareStringOption[helvet]{fontpackage}
+\DeclareStringOption[Arial]{fontname}
 \ProcessKeyvalOptions*
 
 \ifLM@encoding
@@ -30,7 +33,13 @@
   \RequirePackage[\LM@babeloptions]{babel}
 \fi
 \ifLM@font
-  \RequirePackage{\LM@fontpackage}
+  \ifPDFTeX
+    \RequirePackage{\LM@fontpackage}
+  \else
+    \RequirePackage{fontspec}
+    \setmainfont{\LM@fontname}
+    \setsansfont{\LM@fontname}
+  \fi
 \fi
 \RequirePackage[absolute,overlay]{textpos}
 \RequirePackage{geometry}
@@ -42,6 +51,9 @@
 \newlength{\LMmargin}
 \newlength{\LMcontentW}
 \setlength{\LMmargin}{\LM@margin cm}
+
+\makeatother
+
 \geometry{paper=a4paper,margin=\LMmargin}
 \pagestyle{empty}
 
