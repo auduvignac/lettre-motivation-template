@@ -111,6 +111,8 @@ Les valeurs par défaut peuvent aussi être remplacées sans désactiver tout le
 ]{lettre_motivation_template}
 ```
 
+`fontpackage` ne concerne que pdfTeX. Sous XeLaTeX et LuaLaTeX, cette option est dépréciée et ignorée : le package charge `fontspec` et utilise `fontname` pour `\setmainfont` et `\setsansfont`. Pour une configuration `fontspec` entièrement personnalisée, utilisez `font=false` et chargez les polices dans le document qui fait appel au package.
+
 ## Personnalisation
 
 Le package expose des longueurs et commandes de mise en page pour ajuster le rendu sans modifier directement le cœur du template :

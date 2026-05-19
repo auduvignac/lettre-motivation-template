@@ -15,7 +15,12 @@
 \DeclareStringOption[utf8]{inputencoding}
 \DeclareStringOption[T1]{fontencodingname}
 \DeclareStringOption[french]{babeloptions}
+\newif\ifLM@fontpackageexplicit
 \DeclareStringOption[helvet]{fontpackage}
+\define@key{LM}{fontpackage}{%
+  \LM@fontpackageexplicittrue
+  \def\LM@fontpackage{#1}%
+}
 \DeclareStringOption[Arial]{fontname}
 \ProcessKeyvalOptions*
 
@@ -36,6 +41,12 @@
   \ifPDFTeX
     \RequirePackage{\LM@fontpackage}
   \else
+    \ifLM@fontpackageexplicit
+      \PackageWarning{lettre_motivation_template}{%
+        Option `fontpackage' is deprecated and ignored with XeLaTeX/LuaLaTeX.\MessageBreak
+        Use `fontname' or set `font=false' and load fontspec yourself%
+      }%
+    \fi
     \RequirePackage{fontspec}
     \setmainfont{\LM@fontname}
     \setsansfont{\LM@fontname}
