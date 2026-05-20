@@ -1,5 +1,7 @@
 \NeedsTeXFormat{LaTeX2e}
 
+\makeatletter
+
 \RequirePackage{iftex}
 \RequirePackage{kvoptions}
 
@@ -13,7 +15,14 @@
 \DeclareStringOption[utf8]{inputencoding}
 \DeclareStringOption[T1]{fontencodingname}
 \DeclareStringOption[french]{babeloptions}
+\newif\ifLM@fontpackageexplicit
 \DeclareStringOption[helvet]{fontpackage}
+\define@key{LM}{fontpackage}{%
+  \LM@fontpackageexplicittrue
+  \def\LM@fontpackage{#1}%
+}
+\newcommand{\LM@fallbackfontname}{TeX Gyre Heros}
+\DeclareStringOption[\LM@fallbackfontname]{fontname}
 \ProcessKeyvalOptions*
 
 \ifLM@encoding
@@ -30,7 +39,37 @@
   \RequirePackage[\LM@babeloptions]{babel}
 \fi
 \ifLM@font
-  \RequirePackage{\LM@fontpackage}
+  \ifPDFTeX
+    \RequirePackage{\LM@fontpackage}
+  \else
+    \ifLM@fontpackageexplicit
+      \PackageWarning{lettre_motivation_template}{%
+        Option `fontpackage' is deprecated and ignored with XeLaTeX/LuaLaTeX.\MessageBreak
+        Use `fontname' or set `font=false' and load fontspec yourself%
+      }%
+    \fi
+    \RequirePackage{fontspec}
+    \IfFontExistsTF{\LM@fontname}{%
+      \setmainfont{\LM@fontname}
+      \setsansfont{\LM@fontname}
+    }{%
+      \IfFontExistsTF{\LM@fallbackfontname}{%
+        \PackageWarning{lettre_motivation_template}{%
+          Font `\LM@fontname' not found.\MessageBreak
+          Falling back to `\LM@fallbackfontname'%
+        }%
+        \setmainfont{\LM@fallbackfontname}
+        \setsansfont{\LM@fallbackfontname}
+      }{%
+        \PackageError{lettre_motivation_template}{%
+          Neither font `\LM@fontname' nor fallback `\LM@fallbackfontname' found%
+        }{%
+          Install one of these fonts or disable automatic font loading with\MessageBreak
+          `font=false' and configure fonts manually with fontspec.%
+        }%
+      }%
+    }%
+  \fi
 \fi
 \RequirePackage[absolute,overlay]{textpos}
 \RequirePackage{geometry}
@@ -42,6 +81,9 @@
 \newlength{\LMmargin}
 \newlength{\LMcontentW}
 \setlength{\LMmargin}{\LM@margin cm}
+
+\makeatother
+
 \geometry{paper=a4paper,margin=\LMmargin}
 \pagestyle{empty}
 
@@ -49,8 +91,8 @@
 \setlength{\TPVertModule}{1mm}
 \textblockorigin{\LMmargin}{\LMmargin}
 
-\newcommand{\LMmainfont}{\fontsize{11.25pt}{15.95pt}\selectfont}
-\newcommand{\LMboldfont}{\fontsize{11.25pt}{15.95pt}\selectfont\bfseries}
+\newcommand{\LMmainfont}{\normalsize}
+\newcommand{\LMboldfont}{\normalsize\bfseries}
 \newcommand{\LMblocksetup}{%
   \setlength{\parindent}{0pt}%
   \setlength{\parskip}{0pt}%
