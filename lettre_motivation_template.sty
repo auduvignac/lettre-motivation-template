@@ -53,12 +53,21 @@
       \setmainfont{\LM@fontname}
       \setsansfont{\LM@fontname}
     }{%
-      \PackageWarning{lettre_motivation_template}{%
-        Font `\LM@fontname' not found.\MessageBreak
-        Falling back to `\LM@fallbackfontname'%
+      \IfFontExistsTF{\LM@fallbackfontname}{%
+        \PackageWarning{lettre_motivation_template}{%
+          Font `\LM@fontname' not found.\MessageBreak
+          Falling back to `\LM@fallbackfontname'%
+        }%
+        \setmainfont{\LM@fallbackfontname}
+        \setsansfont{\LM@fallbackfontname}
+      }{%
+        \PackageError{lettre_motivation_template}{%
+          Neither font `\LM@fontname' nor fallback `\LM@fallbackfontname' found%
+        }{%
+          Install one of these fonts or disable automatic font loading with\MessageBreak
+          `font=false' and configure fonts manually with fontspec.%
+        }%
       }%
-      \setmainfont{\LM@fallbackfontname}
-      \setsansfont{\LM@fallbackfontname}
     }%
   \fi
 \fi
