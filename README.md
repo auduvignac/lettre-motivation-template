@@ -139,7 +139,7 @@ Les valeurs par défaut peuvent aussi être remplacées sans désactiver tout le
 
 `fontpackage` ne concerne que pdfTeX. Sous XeLaTeX et LuaLaTeX, cette option est dépréciée et ignorée : le package charge `fontspec` et utilise `fontname` pour `\setmainfont` et `\setsansfont`. Pour une configuration `fontspec` entièrement personnalisée, utilisez `font=false` et chargez les polices dans le document qui fait appel au package.
 
-La valeur par défaut de `fontname` est `TeX Gyre Heros`, une police sans sérif généralement disponible avec les distributions TeX. Si la police indiquée par `fontname` est absente, le package émet un avertissement et se replie sur `TeX Gyre Heros`.
+La valeur par défaut de `fontname` est `TeX Gyre Heros`, une police sans empattement généralement disponible avec les distributions TeX. Si la police indiquée par `fontname` est absente, le package émet un avertissement et se replie sur `TeX Gyre Heros`.
 
 ## Personnalisation
 
